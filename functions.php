@@ -8,7 +8,7 @@ define("MB", 1048576);
 
 function filterRequest($requestname)
 {
-  return  htmlspecialchars(strip_tags($_POST[$requestname]));
+    return  htmlspecialchars(strip_tags($_POST[$requestname]));
 }
 
 function getAllData($table, $where = null, $values = null)
@@ -19,7 +19,7 @@ function getAllData($table, $where = null, $values = null)
     $stmt->execute($values);
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $count  = $stmt->rowCount();
-    if ($count > 0){
+    if ($count > 0) {
         echo json_encode(array("status" => "success", "data" => $data));
     } else {
         echo json_encode(array("status" => "failure"));
@@ -43,12 +43,12 @@ function insertData($table, $data, $json = true)
     $stmt->execute();
     $count = $stmt->rowCount();
     if ($json == true) {
-    if ($count > 0) {
-        echo json_encode(array("status" => "success"));
-    } else {
-        echo json_encode(array("status" => "failure"));
+        if ($count > 0) {
+            echo json_encode(array("status" => "success"));
+        } else {
+            echo json_encode(array("status" => "failure"));
+        }
     }
-  }
     return $count;
 }
 
@@ -69,11 +69,11 @@ function updateData($table, $data, $where, $json = true)
     $stmt->execute($vals);
     $count = $stmt->rowCount();
     if ($json == true) {
-    if ($count > 0) {
-        echo json_encode(array("status" => "success"));
-    } else {
-        echo json_encode(array("status" => "failure"));
-    }
+        if ($count > 0) {
+            echo json_encode(array("status" => "success"));
+        } else {
+            echo json_encode(array("status" => "failure"));
+        }
     }
     return $count;
 }
@@ -96,27 +96,27 @@ function deleteData($table, $where, $json = true)
 
 function imageUpload($imageRequest)
 {
-  global $msgError;
-  $imagename  = rand(1000, 10000) . $_FILES[$imageRequest]['name'];
-  $imagetmp   = $_FILES[$imageRequest]['tmp_name'];
-  $imagesize  = $_FILES[$imageRequest]['size'];
-  $allowExt   = array("jpg", "png", "gif", "mp3", "pdf");
-  $strToArray = explode(".", $imagename);
-  $ext        = end($strToArray);
-  $ext        = strtolower($ext);
+    global $msgError;
+    $imagename  = rand(1000, 10000) . $_FILES[$imageRequest]['name'];
+    $imagetmp   = $_FILES[$imageRequest]['tmp_name'];
+    $imagesize  = $_FILES[$imageRequest]['size'];
+    $allowExt   = array("jpg", "png", "gif", "mp3", "pdf");
+    $strToArray = explode(".", $imagename);
+    $ext        = end($strToArray);
+    $ext        = strtolower($ext);
 
-  if (!empty($imagename) && !in_array($ext, $allowExt)) {
-    $msgError = "EXT";
-  }
-  if ($imagesize > 2 * MB) {
-    $msgError = "size";
-  }
-  if (empty($msgError)) {
-    move_uploaded_file($imagetmp,  "../upload/" . $imagename);
-    return $imagename;
-  } else {
-    return "fail";
-  }
+    if (!empty($imagename) && !in_array($ext, $allowExt)) {
+        $msgError = "EXT";
+    }
+    if ($imagesize > 2 * MB) {
+        $msgError = "size";
+    }
+    if (empty($msgError)) {
+        move_uploaded_file($imagetmp,  "../upload/" . $imagename);
+        return $imagename;
+    } else {
+        return "fail";
+    }
 }
 
 
@@ -142,4 +142,16 @@ function checkAuthenticate()
     }
 
     // End 
+}
+
+
+function   printFailure($message = "none") 
+{
+    echo     json_encode(array("status" => "failure" , "message" => $message));
+}
+
+function sendEmail($to , $title , $body){
+$header = "From: support@waelabohamza.com " . "\n" . "CC: waeleagle1243@gmail.com" ; 
+mail($to , $title , $body , $header) ; 
+echo "Success" ; 
 }
