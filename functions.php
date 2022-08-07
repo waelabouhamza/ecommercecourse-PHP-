@@ -27,6 +27,9 @@ function getAllData($table, $where = null, $values = null)
     return $count;
 }
 
+ 
+
+
 function insertData($table, $data, $json = true)
 {
     global $con;
