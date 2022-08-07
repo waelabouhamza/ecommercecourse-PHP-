@@ -23,6 +23,4 @@ if ($count > 0) {
  printFailure("verifycode not Correct") ; 
 
 }
-
-
 ?>
