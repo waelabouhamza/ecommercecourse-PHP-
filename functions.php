@@ -152,9 +152,20 @@ function   printFailure($message = "none")
 {
     echo     json_encode(array("status" => "failure" , "message" => $message));
 }
+function   printSuccess($message = "none") 
+{
+    echo     json_encode(array("status" => "success" , "message" => $message));
+}
+
+function result($count){
+   if ($count > 0){
+    printSuccess() ; 
+   }else {
+    printFailure()  ; 
+   }
+}
 
 function sendEmail($to , $title , $body){
 $header = "From: support@waelabohamza.com " . "\n" . "CC: waeleagle1243@gmail.com" ; 
-mail($to , $title , $body , $header) ; 
-echo "Success" ; 
+mail($to , $title , $body , $header) ;  
 }
