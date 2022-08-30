@@ -14,7 +14,7 @@ try {
    header("Access-Control-Allow-Methods: POST, OPTIONS , GET");
    include "functions.php";
    if (!isset($notAuth)) {
-      // checkAuthenticate();
+      checkAuthenticate();
    }
 } catch (PDOException $e) {
    echo $e->getMessage();
