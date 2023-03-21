@@ -1,12 +1,11 @@
 <?php
 
+$notAuth = "" ; 
+
 include "connect.php" ; 
-
-
-getAllData("users" , "1 = 1" ) ; 
-
-
-
  
+sendGCM("hi"  , "How Are You" , "users31" , "" , "") ; 
+
+echo "Send"  ;
 
 ?>

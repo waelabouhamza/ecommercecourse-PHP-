@@ -8,7 +8,7 @@ $usersid = filterRequest("usersid");
 $itemsid = filterRequest("itemsid");
 
 
-$count  = getData("cart", "cart_itemsid = $itemsid AND cart_usersid = $usersid" ,null  , false );
+$count  = getData("cart", "cart_itemsid = $itemsid AND cart_usersid = $usersid AND cart_orders = 0" ,null  , false );
 
 
 $data = array(
