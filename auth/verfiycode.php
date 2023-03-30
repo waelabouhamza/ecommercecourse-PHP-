@@ -6,7 +6,6 @@ $email  = filterRequest("email") ;
 
 $verfiy = filterRequest("verifycode") ; 
 
-
 $stmt = $con->prepare("SELECT * FROM users WHERE users_email = '$email' AND users_verfiycode = '$verfiy' ") ; 
  
 $stmt->execute() ; 
@@ -20,6 +19,7 @@ if ($count > 0) {
     updateData("users" , $data , "users_email = '$email'");
 
 }else {
+    
  printFailure("verifycode not Correct") ; 
 
 }
