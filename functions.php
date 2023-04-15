@@ -4,6 +4,8 @@
 //  Copyright Reserved Wael Wael Abo Hamza (Course Ecommerce)
 // ==========================================================
 
+// date_default_timezone_set("Asia/Damascus");
+
 define("MB", 1048576);
 
 function filterRequest($requestname)
@@ -128,28 +130,32 @@ function deleteData($table, $where, $json = true)
     return $count;
 }
 
-function imageUpload($imageRequest)
+function imageUpload($dir, $imageRequest)
 {
     global $msgError;
-    $imagename  = rand(1000, 10000) . $_FILES[$imageRequest]['name'];
-    $imagetmp   = $_FILES[$imageRequest]['tmp_name'];
-    $imagesize  = $_FILES[$imageRequest]['size'];
-    $allowExt   = array("jpg", "png", "gif", "mp3", "pdf");
-    $strToArray = explode(".", $imagename);
-    $ext        = end($strToArray);
-    $ext        = strtolower($ext);
+    if (isset($_FILES[$imageRequest])) {
+        $imagename  = rand(1000, 10000) . $_FILES[$imageRequest]['name'];
+        $imagetmp   = $_FILES[$imageRequest]['tmp_name'];
+        $imagesize  = $_FILES[$imageRequest]['size'];
+        $allowExt   = array("jpg", "png", "gif", "mp3", "pdf" , "svg");
+        $strToArray = explode(".", $imagename);
+        $ext        = end($strToArray);
+        $ext        = strtolower($ext);
 
-    if (!empty($imagename) && !in_array($ext, $allowExt)) {
-        $msgError = "EXT";
-    }
-    if ($imagesize > 2 * MB) {
-        $msgError = "size";
-    }
-    if (empty($msgError)) {
-        move_uploaded_file($imagetmp,  "../upload/" . $imagename);
-        return $imagename;
-    } else {
-        return "fail";
+        if (!empty($imagename) && !in_array($ext, $allowExt)) {
+            $msgError = "EXT";
+        }
+        if ($imagesize > 2 * MB) {
+            $msgError = "size";
+        }
+        if (empty($msgError)) {
+            move_uploaded_file($imagetmp,  $dir . "/" . $imagename);
+            return $imagename;
+        } else {
+            return "fail";
+        }
+    }else {
+        return 'empty' ; 
     }
 }
 
